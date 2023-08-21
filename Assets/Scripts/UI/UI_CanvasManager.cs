@@ -105,7 +105,12 @@ public class UI_CanvasManager : MonoBehaviour
 
     #region Account
 
-    public void SetLoginDelegate(VoidVoidDelegate _loginCallback)
+    public void SetActiveAccount(bool _isActive)
+    {
+        uiAccountCanvas.SetActive(_isActive);
+    }
+
+    public void SetLoginDelegate(VoidStrStrDelegate _loginCallback)
     {
         uiAccountCanvas.Init(_loginCallback);
     }

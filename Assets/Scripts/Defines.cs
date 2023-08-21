@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 
 public delegate void VoidVoidDelegate();
+public delegate void VoidStrStrDelegate(string _leftValue, string _rightValue);
 public delegate int IntvoidDelegate();
 public delegate int IntIntDelegate(int _value);
 

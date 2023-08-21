@@ -71,9 +71,10 @@ public class GameManager : MonoBehaviour
 
         gameState = EGameState.Ready;
         uiCanvasMng.SetActiveHUD(false);
-        uiCanvasMng.SetActiveState(true);
         uiCanvasMng.SetActiveRank(false);
+        uiCanvasMng.SetActiveAccount(false);
 
+        uiCanvasMng.SetActiveState(true);
         uiCanvasMng.OnReady();
         yield return new WaitForSeconds(readyDelay);
 
@@ -150,7 +151,16 @@ public class GameManager : MonoBehaviour
 
     private void AccountProcess()
     {
+        uiCanvasMng.SetActiveHUD(false);
+        uiCanvasMng.SetActiveState(false);
+        uiCanvasMng.SetActiveRank(false);
+        uiCanvasMng.SetActiveAccount(true);
+        uiCanvasMng.SetLoginDelegate(UpdateUserInfo);
+    }
 
+    private void UpdateUserInfo(string _id, string _pw)
+    {
+        accountMng.UpdateCurAccount(_id, _pw);
 
         OnReadyProcess(true);
     }
