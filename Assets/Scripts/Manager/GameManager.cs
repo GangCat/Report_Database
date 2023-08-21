@@ -19,11 +19,6 @@ public class GameManager : MonoBehaviour
         uiCanvasMng.UIHUDUpdateKillCount(killCnt);
     }
 
-    public void RetryButtonCallback()
-    {
-        OnReadyProcess(false);
-    }
-
     public void RankButtonCallback()
     {
         uiCanvasMng.SetActiveHUD(false);
@@ -34,6 +29,11 @@ public class GameManager : MonoBehaviour
     public void RankEnterCallback()
     {
         RetryButtonCallback();
+    }
+
+    public void RetryButtonCallback()
+    {
+        OnReadyProcess(false);
     }
 
 
@@ -64,32 +64,7 @@ public class GameManager : MonoBehaviour
         return score = _killCnt * 1000 + _timeSec * 500;
     }
 
-    private IEnumerator ReadyCoroutine(bool _isFirstPlay)
-    {
-        if (!_isFirstPlay)
-            Retry();
 
-        gameState = EGameState.Ready;
-        uiCanvasMng.SetActiveHUD(false);
-        uiCanvasMng.SetActiveRank(false);
-        uiCanvasMng.SetActiveAccount(false);
-
-        uiCanvasMng.SetActiveState(true);
-        uiCanvasMng.OnReady();
-        yield return new WaitForSeconds(readyDelay);
-
-        gameState = EGameState.Start;
-        uiCanvasMng.OnStart();
-        yield return new WaitForSeconds(startDelay);
-
-        gameState = EGameState.Play;
-        uiCanvasMng.SetActiveHUD(true);
-        uiCanvasMng.SetActiveState(false);
-
-        if (_isFirstPlay) Init();
-
-        StartCoroutine("TimerCoroutine");
-    }
 
     private void Init()
     {
@@ -170,11 +145,38 @@ public class GameManager : MonoBehaviour
         StartCoroutine(ReadyCoroutine(_isFirstPlay));
     }
 
+    private IEnumerator ReadyCoroutine(bool _isFirstPlay)
+    {
+        if (!_isFirstPlay)
+            Retry();
+
+        gameState = EGameState.Ready;
+        uiCanvasMng.SetActiveHUD(false);
+        uiCanvasMng.SetActiveRank(false);
+        uiCanvasMng.SetActiveAccount(false);
+
+        uiCanvasMng.SetActiveState(true);
+        uiCanvasMng.OnReady();
+        yield return new WaitForSeconds(readyDelay);
+
+        gameState = EGameState.Start;
+        uiCanvasMng.OnStart();
+        yield return new WaitForSeconds(startDelay);
+
+        gameState = EGameState.Play;
+        uiCanvasMng.SetActiveHUD(true);
+        uiCanvasMng.SetActiveState(false);
+
+        if (_isFirstPlay) Init();
+
+        StartCoroutine("TimerCoroutine");
+    }
+
+
+
     private void Update()
     {
-        if (gameState != EGameState.Play) return;
-        // 이렇게 enum을 직접 비교하는거보다  뭐 isPlay같은 메소드 만드는게 더 좋다.
-        // if(!IsPlay) reutrn;
+        if (!IsPlay()) return;
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -185,9 +187,11 @@ public class GameManager : MonoBehaviour
                 tower.Attack(point, HitCallback);
             }
         }
+    }
 
-        if (Input.GetKeyDown(KeyCode.Space))
-            Debug.Log(killCnt);
+    private bool IsPlay()
+    {
+        return gameState == EGameState.Play;
     }
 
 

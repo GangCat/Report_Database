@@ -96,6 +96,8 @@ public class UI_CanvasManager : MonoBehaviour
 
     #region Rank
 
+
+
     public void SetActiveRank(bool _active, int _score = 0, VoidVoidDelegate _enterCallback = null)
     {
         uiRankCanvas.SetActive(_active, _score, _enterCallback);

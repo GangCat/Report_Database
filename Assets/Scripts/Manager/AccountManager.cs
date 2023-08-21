@@ -15,7 +15,6 @@ public class AccountManager : MonoBehaviour
     }
 
 
-
     private string curId_string = null;
     private string curPw_string = null;
 }

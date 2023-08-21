@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
-using static UnityEngine.Application;
 
 public class UI_Account_Canvas : MonoBehaviour
 {
