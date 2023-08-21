@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 
 public delegate void VoidVoidDelegate();
-delegate int IntvoidDelegate();
-delegate int IntIntDelegate(int _value);
+public delegate int IntvoidDelegate();
+public delegate int IntIntDelegate(int _value);
 
 public delegate void voidListPoolingObjectDelegate(List<IPoolingObject> _enemyList);
 

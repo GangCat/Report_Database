@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public enum EGameState { None = -1, Ready, Start, Play, GameOver, Rank }
+    public enum EGameState { None = -1, Login, Ready, Start, Play, GameOver, Rank }
 
     public static bool IsPlaying() { return gameState == EGameState.Play; }
     public static bool IsGameOver() { return gameState == EGameState.GameOver; }
@@ -56,6 +56,7 @@ public class GameManager : MonoBehaviour
     {
         uiCanvasMng.UIHUDUpdateMissileStateWithIndex(_missileIdx, _isFill);
     }
+
     #endregion
 
     private int CalcScore(int _killCnt, int _timeSec)
@@ -139,11 +140,18 @@ public class GameManager : MonoBehaviour
     {
         tower = FindAnyObjectByType<Tower>();
         inputMouse = InputMouse.Instance;
-        gameState = EGameState.Ready;
+        gameState = EGameState.Login;
     }
 
     private void Start()
     {
+        AccountProcess();
+    }
+
+    private void AccountProcess()
+    {
+
+
         OnReadyProcess(true);
     }
 
@@ -174,9 +182,11 @@ public class GameManager : MonoBehaviour
 
 
     [SerializeField]
-    private EnemyManager enemyMng = null;
+    private EnemyManager        enemyMng = null;
     [SerializeField]
-    private UI_CanvasManager uiCanvasMng = null;
+    private UI_CanvasManager    uiCanvasMng = null;
+    [SerializeField]
+    private AccountManager      accountMng = null;
 
     private int killCnt = 0;
     private int timeSec = 0;
@@ -187,6 +197,6 @@ public class GameManager : MonoBehaviour
 
     private static EGameState gameState = EGameState.None;
 
-    private InputMouse inputMouse = null;
-    private Tower tower = null;
+    private InputMouse  inputMouse = null;
+    private Tower       tower = null;
 }

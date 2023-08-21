@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class AlertText : MonoBehaviour
+public class UI_Account_AlertText : MonoBehaviour
 {
     public void AlertMessage(string _message)
     {

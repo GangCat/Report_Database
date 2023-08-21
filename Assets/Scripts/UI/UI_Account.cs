@@ -4,27 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class UIAccount : MonoBehaviour
+public class UI_Account : MonoBehaviour
 {
     public enum EInputType { ID, PW }
     public delegate void OnClickSignUpDelegate(string _id, string _pw);
     public delegate void OnClickLoginDelegate(string _id, string _pw);
-
-    public OnClickSignUpDelegate OnClickSignUpCallback
-    {
-        set { onClickSignUpCallback = value; }
-    }
-
-    public OnClickLoginDelegate OnClickLoginCallback
-    {
-        set { onClickLoginCallback = value; }
-    }
-
-    public void OnChangedIdText(string _id)
-    {
-        // 한 글자 추가될때마다 갱신
-        id = _id;
-    }
 
     public void Init(OnClickSignUpDelegate _onClickSignUpCallback, OnClickLoginDelegate _onClickLoginCallback)
     {
@@ -33,7 +17,7 @@ public class UIAccount : MonoBehaviour
         dicIF.Add("ID", inputFields[0]);
         dicIF.Add("PW", inputFields[1]);
 
-        Button btnSignUp = GetComponentInChildren<ButtonSignUp>().transform.GetComponent<Button>();
+        Button btnSignUp = GetComponentInChildren<UI_Account_SignupButton>().transform.GetComponent<Button>();
         btnSignUp.onClick.AddListener(
             () =>
             {
@@ -41,7 +25,7 @@ public class UIAccount : MonoBehaviour
             }
             );
 
-        Button btnSignIn = GetComponentInChildren<ButtonSignIn>().transform.GetComponent<Button>();
+        Button btnSignIn = GetComponentInChildren<UI_Account_LoginButton>().transform.GetComponent<Button>();
         btnSignIn.onClick.AddListener(
             () =>
             {
@@ -50,11 +34,5 @@ public class UIAccount : MonoBehaviour
             );
     }
 
-
-
     private Dictionary<string, TMP_InputField> dicIF = new Dictionary<string, TMP_InputField>();
-
-    private string id = null;
-    private OnClickSignUpDelegate onClickSignUpCallback = null;
-    private OnClickLoginDelegate onClickLoginCallback = null;
 }

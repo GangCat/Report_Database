@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class UI_CanvasManager : MonoBehaviour
 {
-    public enum ECanvasType { None = -1, HUD, State, Rank }
+    public enum ECanvasType { None = -1, HUD, State, Rank, Account }
 
     #region HUD
     public void SetActiveHUD(bool _active)
@@ -68,7 +68,6 @@ public class UI_CanvasManager : MonoBehaviour
         uiStateCanvas.SetActive(_active);
     }
 
-
     public void OnReady()
     {
         uiStateCanvas.OnReady();
@@ -83,7 +82,6 @@ public class UI_CanvasManager : MonoBehaviour
     {
         uiStateCanvas.OnGameOver(_killCnt, _timeSec, _score);
     }
-
 
     public void SetRetryButtonCallback(VoidVoidDelegate _callback)
     {
@@ -103,6 +101,14 @@ public class UI_CanvasManager : MonoBehaviour
         uiRankCanvas.SetActive(_active, _score, _enterCallback);
     }
 
+    #endregion
+
+    #region Account
+
+    public void SetLoginDelegate(VoidVoidDelegate _loginCallback)
+    {
+        uiAccountCanvas.Init(_loginCallback);
+    }
 
 
     #endregion
@@ -113,6 +119,8 @@ public class UI_CanvasManager : MonoBehaviour
     private UI_State_Canvas uiStateCanvas = null;
     [SerializeField]
     private UI_Rank_Canvas uiRankCanvas = null;
+    [SerializeField]
+    private UI_Account_Canvas uiAccountCanvas = null;
 
 
 }

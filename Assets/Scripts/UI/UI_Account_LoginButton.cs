@@ -2,6 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ButtonSignIn : MonoBehaviour
+public class UI_Account_LoginButton : MonoBehaviour
 {
 }

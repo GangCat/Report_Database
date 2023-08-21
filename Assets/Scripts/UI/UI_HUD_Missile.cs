@@ -4,19 +4,6 @@ using UnityEngine;
 
 public class UI_HUD_Missile : MonoBehaviour
 {
-    //public void UpdateMissileCount(int _curMissileCnt)
-    //{
-    //    if (_curMissileCnt > listMissile.Count) return;
-        
-    //    for(int i = 0; i < listMissile.Count; ++i)
-    //    {
-    //        if (i < _curMissileCnt)
-    //            listMissile[i].Fill();
-    //        else
-    //            listMissile[i].Empty();
-    //    }
-    //}
-
     public void UpdateMissileStateWithIndex(int _missileIdx, bool _isFill)
     {
         if (_missileIdx < 0) return;
@@ -27,8 +14,6 @@ public class UI_HUD_Missile : MonoBehaviour
         else
             listMissile[_missileIdx].Empty();
     }
-
-
 
     public void Init(int _maxMissileCnt)
     {
@@ -49,7 +34,6 @@ public class UI_HUD_Missile : MonoBehaviour
         foreach (UI_HUD_Missile_Missile missile in listMissile)
             missile.Fill();
     }
-
 
     [SerializeField]
     private RectTransform missileGroupTr = null;
