@@ -7,29 +7,27 @@ using TMPro;
 public class UI_Account : MonoBehaviour
 {
     public enum EInputType { ID, PW }
-    public delegate void OnClickSignUpDelegate(string _id, string _pw);
-    public delegate void OnClickLoginDelegate(string _id, string _pw);
 
-    public void Init(OnClickSignUpDelegate _onClickSignUpCallback, OnClickLoginDelegate _onClickLoginCallback)
+    public void Init(VoidStrStrDelegate _onClickLoginCallback, VoidStrStrDelegate _onClickSignUpCallback)
     {
         TMP_InputField[] inputFields = GetComponentsInChildren<TMP_InputField>();
 
         dicIF.Add("ID", inputFields[0]);
         dicIF.Add("PW", inputFields[1]);
 
+        Button btnLogIn = GetComponentInChildren<UI_Account_LoginButton>().transform.GetComponent<Button>();
+        btnLogIn.onClick.AddListener(
+            () =>
+            {
+                _onClickLoginCallback?.Invoke(dicIF["ID"].text, dicIF["PW"].text);
+            }
+            );
+
         Button btnSignUp = GetComponentInChildren<UI_Account_SignupButton>().transform.GetComponent<Button>();
         btnSignUp.onClick.AddListener(
             () =>
             {
                 _onClickSignUpCallback?.Invoke(dicIF["ID"].text, dicIF["PW"].text);
-            }
-            );
-
-        Button btnSignIn = GetComponentInChildren<UI_Account_LoginButton>().transform.GetComponent<Button>();
-        btnSignIn.onClick.AddListener(
-            () =>
-            {
-                _onClickLoginCallback?.Invoke(dicIF["ID"].text, dicIF["PW"].text);
             }
             );
     }

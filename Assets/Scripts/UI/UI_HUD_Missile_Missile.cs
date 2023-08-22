@@ -11,12 +11,14 @@ public class UI_HUD_Missile_Missile : MonoBehaviour
 
     public void Fill()
     {
-        fillGo.SetActive(true);
+        if(fillGo != null)
+            fillGo.SetActive(true);
     }
 
     public void Empty()
     {
-        fillGo.SetActive(false);
+        if (fillGo != null)
+            fillGo.SetActive(false);
     }
 
     [SerializeField]

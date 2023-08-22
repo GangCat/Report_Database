@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class UI_Account_AlertText : MonoBehaviour
 {
-    public void AlertMessage(string _message)
+    public void ShowAlert(string _message)
     {
         text.text = _message;
     }

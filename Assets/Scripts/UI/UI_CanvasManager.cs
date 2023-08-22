@@ -7,25 +7,18 @@ public class UI_CanvasManager : MonoBehaviour
 {
     public enum ECanvasType { None = -1, HUD, State, Rank, Account }
 
+
+
     #region HUD
     public void SetActiveHUD(bool _active)
     {
         uiHudCanvas.SetActive(_active);
     }
 
-
-    public void UIHUDInitHP(int _maxHp)
+    public void InitUIHUD(int _maxHp, int _maxMissileCnt)
     {
         uiHudCanvas.InitHp(_maxHp);
-    }
-
-    public void UIHUDInitMissile(int _maxMissileCnt)
-    {
         uiHudCanvas.InitMissile(_maxMissileCnt);
-    }
-
-    public void UIHUDInitKillCount()
-    {
         uiHudCanvas.InitKillCount();
     }
 
@@ -51,14 +44,19 @@ public class UI_CanvasManager : MonoBehaviour
     }
 
 
-    public void UIHUDFullHp()
+    public void ResetUIHUDHp()
     {
         uiHudCanvas.FullHp();
     }
 
-    public void UIHUDReloadMissile()
+    public void ResetUIHUDMissile()
     {
         uiHudCanvas.ReloadMissile();
+    }
+
+    public void ResetUIHUDKillCount()
+    {
+        uiHudCanvas.InitKillCount();
     }
     #endregion
 
@@ -66,6 +64,13 @@ public class UI_CanvasManager : MonoBehaviour
     public void SetActiveState(bool _active)
     {
         uiStateCanvas.SetActive(_active);
+    }
+
+    public void InitUIState(
+        VoidVoidDelegate _retryBtnCallback,
+        VoidVoidDelegate _rankBtnCallback)
+    {
+        uiStateCanvas.Init(_retryBtnCallback, _rankBtnCallback);
     }
 
     public void OnReady()
@@ -83,24 +88,9 @@ public class UI_CanvasManager : MonoBehaviour
         uiStateCanvas.OnGameOver(_killCnt, _timeSec, _score);
     }
 
-    public void SetRetryButtonCallback(VoidVoidDelegate _callback)
+    public void OnRank(List<SDataScore> _listDataScore)
     {
-        uiStateCanvas.SetRetryButtonCallback(_callback);
-    }
-
-    public void SetRankButtonCallback(VoidVoidDelegate _callback)
-    {
-        uiStateCanvas.SetRankButtonCallback(_callback);
-    }
-    #endregion
-
-    #region Rank
-
-
-
-    public void SetActiveRank(bool _active, int _score = 0, VoidVoidDelegate _enterCallback = null)
-    {
-        uiRankCanvas.SetActive(_active, _score, _enterCallback);
+        uiStateCanvas.OnRank(_listDataScore);
     }
 
     #endregion
@@ -112,9 +102,21 @@ public class UI_CanvasManager : MonoBehaviour
         uiAccountCanvas.SetActive(_isActive);
     }
 
-    public void SetLoginDelegate(VoidStrStrDelegate _loginCallback)
+    public void InitUIAccount
+        (VoidStrStrDelegate _onClickSignupCallback,
+        VoidStrStrDelegate _onClickLoginCallback)
     {
-        uiAccountCanvas.Init(_loginCallback);
+        uiAccountCanvas.Init(_onClickSignupCallback, _onClickLoginCallback);
+    }
+
+    public void UpdateScore(int _score)
+    {
+
+    }
+
+    public void ShowAlert(string _alert)
+    {
+        uiAccountCanvas.ShowAlert(_alert);
     }
 
 
@@ -124,8 +126,6 @@ public class UI_CanvasManager : MonoBehaviour
     private UI_HUD_Canvas uiHudCanvas = null;
     [SerializeField]
     private UI_State_Canvas uiStateCanvas = null;
-    [SerializeField]
-    private UI_Rank_Canvas uiRankCanvas = null;
     [SerializeField]
     private UI_Account_Canvas uiAccountCanvas = null;
 

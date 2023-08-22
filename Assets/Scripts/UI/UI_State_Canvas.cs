@@ -4,7 +4,14 @@ using UnityEngine;
 
 public class UI_State_Canvas : MonoBehaviour
 {
-    public enum EState { None = -1, Ready, Start, GameOver }
+    public enum EState { None = -1, Ready, Start, GameOver, Rank }
+
+    public void Init(
+    VoidVoidDelegate _retryBtnCallback,
+    VoidVoidDelegate _rankBtnCallback)
+    {
+        gameOver.Init(_retryBtnCallback, _rankBtnCallback);
+    }
 
     public void SetActive(bool _active)
     {
@@ -28,14 +35,11 @@ public class UI_State_Canvas : MonoBehaviour
         UpdateVIsible(EState.GameOver);
     }
 
-    public void SetRetryButtonCallback(VoidVoidDelegate _callback)
+    public void OnRank(List<SDataScore> _listDataScore)
     {
-        gameOver.SetRetryButtonCallback(_callback);
-    }
+        uiRankScrollView.AddRankRecord(_listDataScore);
 
-    public void SetRankButtonCallback(VoidVoidDelegate _callback)
-    {
-        gameOver.SetRankButtonCallback(_callback);
+        UpdateVIsible(EState.Rank);
     }
 
     private void UpdateVIsible(EState _state)
@@ -43,6 +47,7 @@ public class UI_State_Canvas : MonoBehaviour
         readyGo.SetActive(false);
         startGo.SetActive(false);
         gameOver.SetActive(false);
+        rank.SetActive(false);
 
         switch (_state)
         {
@@ -55,6 +60,9 @@ public class UI_State_Canvas : MonoBehaviour
             case EState.GameOver:
                 gameOver.SetActive(true);
                 break;
+            case EState.Rank:
+                rank.SetActive(true);
+                break;
         }
     }
 
@@ -63,5 +71,9 @@ public class UI_State_Canvas : MonoBehaviour
     [SerializeField]
     private GameObject startGo = null;
     [SerializeField]
-    private UI_Stage_GameOver gameOver = null;
+    private UI_State_GameOver gameOver = null;
+    [SerializeField]
+    private UI_State_Rank rank = null;
+    [SerializeField]
+    private UI_State_Rank_ScrollView uiRankScrollView = null;
 }

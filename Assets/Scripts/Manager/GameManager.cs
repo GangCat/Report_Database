@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
 
     public static bool IsPlaying() { return gameState == EGameState.Play; }
     public static bool IsGameOver() { return gameState == EGameState.GameOver; }
-    
+
     #region Callback
     public void HitCallback(List<IPoolingObject> _hitList)
     {
@@ -21,9 +21,25 @@ public class GameManager : MonoBehaviour
 
     public void RankButtonCallback()
     {
+        rankMng.ImportRank(accountMng.CurId, score, killCnt, timeSec);
+        StartCoroutine("ExportRankingRecord");
+    }
+
+    private IEnumerator ExportRankingRecord()
+    {
+        while (!rankMng.IsRecordSucess)
+            yield return null;
+
+        rankMng.ExportRank(PrintRanking);
+    }
+
+    private void PrintRanking(List<SDataScore> _listDataScore)
+    {
         uiCanvasMng.SetActiveHUD(false);
-        uiCanvasMng.SetActiveState(false);
-        uiCanvasMng.SetActiveRank(true, score, RankEnterCallback);
+        uiCanvasMng.SetActiveAccount(false);
+
+        uiCanvasMng.OnRank(_listDataScore);
+        uiCanvasMng.SetActiveState(true);
     }
 
     public void RankEnterCallback()
@@ -64,19 +80,31 @@ public class GameManager : MonoBehaviour
         return score = _killCnt * 1000 + _timeSec * 500;
     }
 
-
-
     private void Init()
     {
         tower.Init(MissileStateCallback);
         enemyMng.Init(tower.gameObject, EnemyAttackCallback);
 
-        uiCanvasMng.UIHUDInitHP(tower.MaxHp);
-        uiCanvasMng.UIHUDInitMissile(tower.MaxMissileCount);
-        uiCanvasMng.UIHUDInitKillCount();
+        uiCanvasMng.InitUIHUD(tower.MaxHp, tower.MaxMissileCount);
+        uiCanvasMng.InitUIState(RetryButtonCallback, RankButtonCallback);
+        uiCanvasMng.InitUIAccount(LoginProcess, SignupProcess);
 
-        uiCanvasMng.SetRetryButtonCallback(RetryButtonCallback);
-        uiCanvasMng.SetRankButtonCallback(RankButtonCallback);
+        accountMng.Init(StartGame, ShowAlert);
+    }
+
+    private void LoginProcess(string _id, string _pw)
+    {
+        accountMng.LoginProcess(_id, _pw);
+    }
+
+    private void SignupProcess(string _id, string _pw)
+    {
+        accountMng.SignupProcess(_id, _pw);
+    }
+
+    private void ShowAlert(string _alert)
+    {
+        uiCanvasMng.ShowAlert(_alert);
     }
 
     private void Retry()
@@ -94,9 +122,9 @@ public class GameManager : MonoBehaviour
         timeSec = 0;
         score = 0;
 
-        uiCanvasMng.UIHUDFullHp();
-        uiCanvasMng.UIHUDReloadMissile();
-        uiCanvasMng.UIHUDInitKillCount();
+        uiCanvasMng.ResetUIHUDHp();
+        uiCanvasMng.ResetUIHUDMissile();
+        uiCanvasMng.ResetUIHUDKillCount();
         uiCanvasMng.UIHUDUpdateTimer(timeSec);
 
         StopCoroutine("TimerCoroutine");
@@ -128,15 +156,13 @@ public class GameManager : MonoBehaviour
     {
         uiCanvasMng.SetActiveHUD(false);
         uiCanvasMng.SetActiveState(false);
-        uiCanvasMng.SetActiveRank(false);
         uiCanvasMng.SetActiveAccount(true);
-        uiCanvasMng.SetLoginDelegate(UpdateUserInfo);
+
+        Init();
     }
 
-    private void UpdateUserInfo(string _id, string _pw)
+    private void StartGame()
     {
-        accountMng.UpdateCurAccount(_id, _pw);
-
         OnReadyProcess(true);
     }
 
@@ -152,7 +178,6 @@ public class GameManager : MonoBehaviour
 
         gameState = EGameState.Ready;
         uiCanvasMng.SetActiveHUD(false);
-        uiCanvasMng.SetActiveRank(false);
         uiCanvasMng.SetActiveAccount(false);
 
         uiCanvasMng.SetActiveState(true);
@@ -167,7 +192,7 @@ public class GameManager : MonoBehaviour
         uiCanvasMng.SetActiveHUD(true);
         uiCanvasMng.SetActiveState(false);
 
-        if (_isFirstPlay) Init();
+        //if (_isFirstPlay) Init();
 
         StartCoroutine("TimerCoroutine");
     }
@@ -183,8 +208,8 @@ public class GameManager : MonoBehaviour
             Vector3 point = Vector3.zero;
             if (inputMouse.Picking("Stage", ref point, 1 << LayerMask.NameToLayer("Stage")))
             {
-                if(Vector3.SqrMagnitude(tower.GetPosition() - point) > 2f)
-                tower.Attack(point, HitCallback);
+                if (Vector3.SqrMagnitude(tower.GetPosition() - point) > 2f)
+                    tower.Attack(point, HitCallback);
             }
         }
     }
@@ -196,11 +221,13 @@ public class GameManager : MonoBehaviour
 
 
     [SerializeField]
-    private EnemyManager        enemyMng = null;
+    private EnemyManager enemyMng = null;
     [SerializeField]
-    private UI_CanvasManager    uiCanvasMng = null;
+    private UI_CanvasManager uiCanvasMng = null;
     [SerializeField]
-    private AccountManager      accountMng = null;
+    private AccountManager accountMng = null;
+    [SerializeField]
+    private RankManager rankMng = null;
 
     private int killCnt = 0;
     private int timeSec = 0;
@@ -211,6 +238,6 @@ public class GameManager : MonoBehaviour
 
     private static EGameState gameState = EGameState.None;
 
-    private InputMouse  inputMouse = null;
-    private Tower       tower = null;
+    private InputMouse inputMouse = null;
+    private Tower tower = null;
 }

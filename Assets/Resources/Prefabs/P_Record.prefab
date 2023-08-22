@@ -722,7 +722,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de7d7d47f859b4a4e8e83bb0166173cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textId: {fileID: 6432948710217493519}
-  textScore: {fileID: 6432948710728707140}
-  textKillCnt: {fileID: 6432948710610451236}
-  textTimeSec: {fileID: 6432948710062920860}
+  rankId: {fileID: 6432948710217493521}
+  rankScore: {fileID: 6432948710728707142}
+  rankKillCnt: {fileID: 6432948710610451238}
+  rankTimeSec: {fileID: 6432948710062920862}
