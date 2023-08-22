@@ -11,6 +11,7 @@ public class UI_State_Canvas : MonoBehaviour
     VoidVoidDelegate _rankBtnCallback)
     {
         gameOver.Init(_retryBtnCallback, _rankBtnCallback);
+        rank.Init(_retryBtnCallback);            
     }
 
     public void SetActive(bool _active)

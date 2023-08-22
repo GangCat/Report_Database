@@ -15,6 +15,7 @@ public class UI_State_Rank : MonoBehaviour
         btnRetry.onClick.AddListener(
         () =>
         {
+            uiRankScrollView.ResetContent();
             _retryBtnCallback?.Invoke();
         }
         );
@@ -22,6 +23,7 @@ public class UI_State_Rank : MonoBehaviour
 
     public void ShowRanking(List<SDataScore> _listDataScore)
     {
+        //List<GameObject> listData = GetComponentsInChildren<>
         uiRankScrollView.AddRankRecord(_listDataScore);
 
         SetActive(true);

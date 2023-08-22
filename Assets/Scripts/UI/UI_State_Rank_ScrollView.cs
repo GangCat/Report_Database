@@ -10,13 +10,17 @@ public class UI_State_Rank_ScrollView : MonoBehaviour
         {
             GameObject go = Instantiate(rankRecordPrefab);
             go.GetComponent<UI_State_Rank_Record>().UpdateRecord(_listDataScore[i]);
-            go.transform.SetParent(contentTr);
-            //go.transform.localPosition = Vector3.zero;
+            go.transform.SetParent(content.GetRectTransform());
         }
+    }
+
+    public void ResetContent()
+    {
+        content.ResetContent();
     }
 
     [SerializeField]
     private GameObject rankRecordPrefab = null;
     [SerializeField]
-    private RectTransform contentTr = null;
+    private UI_State_Rank_Content content = null;
 }
