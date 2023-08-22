@@ -68,9 +68,10 @@ public class UI_CanvasManager : MonoBehaviour
 
     public void InitUIState(
         VoidVoidDelegate _retryBtnCallback,
-        VoidVoidDelegate _rankBtnCallback)
+        VoidVoidDelegate _rankBtnCallback,
+        VoidStrStrDelegate _orderButtonCallback)
     {
-        uiStateCanvas.Init(_retryBtnCallback, _rankBtnCallback);
+        uiStateCanvas.Init(_retryBtnCallback, _rankBtnCallback, _orderButtonCallback);
     }
 
     public void OnReady()

@@ -13,9 +13,9 @@ public class RankManager : MonoBehaviour
         StartCoroutine(PushRankCoroutine(_id, _score, _killCnt, _timeSec));
     }
 
-    public void ExportRank(VoidListDataScoreDelegate _exportCallback)
+    public void ExportRank(VoidListDataScoreDelegate _exportCallback, string _orderStandard, string _orderType)
     {
-        StartCoroutine("PullRankCoroutine", _exportCallback);
+        StartCoroutine(PullRankCoroutine(_exportCallback, _orderStandard, _orderType));
     }
 
 
@@ -50,9 +50,13 @@ public class RankManager : MonoBehaviour
         }
     }
 
-    private IEnumerator PullRankCoroutine(VoidListDataScoreDelegate _exportCallback)
+    private IEnumerator PullRankCoroutine(VoidListDataScoreDelegate _exportCallback, string _orderStandard, string _orderType)
     {
-        using (UnityWebRequest www = UnityWebRequest.Post(pullRankUri, ""))
+        WWWForm form = new WWWForm();
+        form.AddField("ORDER_STANDARD", _orderStandard);
+        form.AddField("ORDER_TYPE", _orderType);
+
+        using (UnityWebRequest www = UnityWebRequest.Post(pullRankUri, form))
         {
             yield return www.SendWebRequest();
 

@@ -10,15 +10,16 @@ public class UI_State_Rank : MonoBehaviour
         gameObject.SetActive(_isActive);
     }
 
-    public void Init(VoidVoidDelegate _retryBtnCallback)
+    public void Init(VoidVoidDelegate _retryBtnCallback, VoidStrStrDelegate _orderButtonCallback)
     {
         btnRetry.onClick.AddListener(
         () =>
         {
-            uiRankScrollView.ClearContent();
             _retryBtnCallback?.Invoke();
         }
         );
+
+        uiRankColumn.Init(_orderButtonCallback);
     }
 
     public void ShowRanking(List<SDataScore> _listDataScore)
@@ -32,6 +33,8 @@ public class UI_State_Rank : MonoBehaviour
 
     [SerializeField]
     private UI_State_Rank_ScrollView uiRankScrollView = null;
+    [SerializeField]
+    private UI_State_Rank_Column uiRankColumn = null;
     [SerializeField]
     private Button btnRetry = null;
 }

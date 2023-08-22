@@ -6,6 +6,8 @@ public class UI_State_Rank_ScrollView : MonoBehaviour
 {
     public void AddRankRecord(List<SDataScore> _listDataScore)
     {
+        content.ClearContent();
+
         int maxRecord = 10;
 
         if (_listDataScore.Count < 10)
@@ -17,11 +19,6 @@ public class UI_State_Rank_ScrollView : MonoBehaviour
             go.GetComponent<UI_State_Rank_Record>().UpdateRecord(_listDataScore[i], i + 1);
             go.transform.SetParent(content.GetRectTransform());
         }
-    }
-
-    public void ClearContent()
-    {
-        content.ClearContent();
     }
 
     [SerializeField]

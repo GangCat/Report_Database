@@ -8,10 +8,11 @@ public class UI_State_Canvas : MonoBehaviour
 
     public void Init(
     VoidVoidDelegate _retryBtnCallback,
-    VoidVoidDelegate _rankBtnCallback)
+    VoidVoidDelegate _rankBtnCallback,
+    VoidStrStrDelegate _orderButtonCallback)
     {
         gameOver.Init(_retryBtnCallback, _rankBtnCallback);
-        rank.Init(_retryBtnCallback);            
+        rank.Init(_retryBtnCallback, _orderButtonCallback);            
     }
 
     public void SetActive(bool _active)

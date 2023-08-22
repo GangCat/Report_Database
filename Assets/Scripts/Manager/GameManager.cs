@@ -22,16 +22,18 @@ public class GameManager : MonoBehaviour
     public void RankButtonCallback()
     {
         rankMng.ImportRank(accountMng.CurId, score, killCnt, timeSec);
-        StartCoroutine("ExportRankingRecord");
+        StartCoroutine(ExportRankingRecord("score", "DESC"));
     }
 
-    private IEnumerator ExportRankingRecord()
+    private IEnumerator ExportRankingRecord(string _orderStardard, string _orderType)
     {
         while (!rankMng.IsRecordSucess)
             yield return null;
 
-        rankMng.ExportRank(PrintRanking);
+        rankMng.ExportRank(PrintRanking, _orderStardard, _orderType);
     }
+
+
 
     private void PrintRanking(List<SDataScore> _listDataScore)
     {
@@ -86,10 +88,15 @@ public class GameManager : MonoBehaviour
         enemyMng.Init(tower.gameObject, EnemyAttackCallback);
 
         uiCanvasMng.InitUIHUD(tower.MaxHp, tower.MaxMissileCount);
-        uiCanvasMng.InitUIState(RetryButtonCallback, RankButtonCallback);
+        uiCanvasMng.InitUIState(RetryButtonCallback, RankButtonCallback, OrderRank);
         uiCanvasMng.InitUIAccount(LoginProcess, SignupProcess);
 
         accountMng.Init(StartGame, ShowAlert);
+    }
+
+    public void OrderRank(string _orderStandard, string _orderType)
+    {
+        rankMng.ExportRank(PrintRanking, _orderStandard, _orderType);
     }
 
     private void LoginProcess(string _id, string _pw)

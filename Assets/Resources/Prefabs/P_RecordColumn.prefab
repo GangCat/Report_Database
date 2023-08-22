@@ -147,6 +147,7 @@ GameObject:
   - component: {fileID: 4646670685685179985}
   - component: {fileID: 8986595560371916926}
   - component: {fileID: 3899719360614965348}
+  - component: {fileID: 1143123572}
   m_Layer: 0
   m_Name: Button_OrderTimeSec
   m_TagString: Untagged
@@ -256,6 +257,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1143123572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2535025163519069292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23df6fdd97ae7fc499860e7ee886f8e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5387502359602600816
 GameObject:
   m_ObjectHideFlags: 0
@@ -614,8 +627,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5387502359969536157}
+  - component: {fileID: 1523243902}
   m_Layer: 0
-  m_Name: P_RecordColum
+  m_Name: P_RecordColumn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -647,6 +661,19 @@ RectTransform:
   m_AnchoredPosition: {x: -8.5, y: 384}
   m_SizeDelta: {x: 880, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1523243902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5387502359969536156}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3030e5e4d641f6468c2ba60c123371f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  orderScore: {fileID: 0}
 --- !u!1 &5387502360112444616
 GameObject:
   m_ObjectHideFlags: 0
@@ -933,6 +960,7 @@ GameObject:
   - component: {fileID: 7449506739728184853}
   - component: {fileID: 7661861429980997255}
   - component: {fileID: 4392914373651778828}
+  - component: {fileID: 997494210}
   m_Layer: 0
   m_Name: Button_OrderKillCnt
   m_TagString: Untagged
@@ -1042,6 +1070,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &997494210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5758478438742937575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 392560a428027934289091c296505e44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7745783225595106116
 GameObject:
   m_ObjectHideFlags: 0
@@ -1054,6 +1094,7 @@ GameObject:
   - component: {fileID: 8829817843259613229}
   - component: {fileID: 8120666138358599205}
   - component: {fileID: 5823672925623316948}
+  - component: {fileID: 430439600}
   m_Layer: 0
   m_Name: Button_OrderScore
   m_TagString: Untagged
@@ -1163,3 +1204,15 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &430439600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7745783225595106116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef34bbd26e9c3ca46b1b416184a1aa32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
