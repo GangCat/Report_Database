@@ -77,5 +77,5 @@ public class RankManager : MonoBehaviour
     private bool isRecordSucess = false;
 
     private readonly string pushRankUri = "http://127.0.0.1/PushRank.php";
-    private readonly string pullRankUri = "http://127.0.0.1/PullRank.php";
+    private readonly string pullRankUri = "http://127.0.0.1/pullRank.php";
 }

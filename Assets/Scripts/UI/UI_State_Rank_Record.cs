@@ -5,20 +5,23 @@ using UnityEngine;
 
 public class UI_State_Rank_Record : MonoBehaviour
 {
-    public void UpdateRecord(SDataScore _dataScore)
+    public void UpdateRecord(SDataScore _dataScore, int _rank)
     {
-        rankId.UpdateText(_dataScore.id);
-        rankScore.UpdateText(_dataScore.score.ToString("N0"));
-        rankKillCnt.UpdateText(_dataScore.killCnt.ToString());
-        rankTimeSec.UpdateText(_dataScore.timeSec.ToString());
+        rank.UpdateText(_rank.ToString());
+        id.UpdateText(_dataScore.id);
+        score.UpdateText(_dataScore.score.ToString("N0"));
+        killCnt.UpdateText(_dataScore.killCnt.ToString());
+        timeSec.UpdateText(_dataScore.timeSec.ToString());
     }
 
     [SerializeField]
-    private UI_State_Rank_Id rankId = null;
+    private UI_State_Rank_Rank rank = null;
     [SerializeField]
-    private UI_State_Rank_Score rankScore = null;
+    private UI_State_Rank_Id id = null;
     [SerializeField]
-    private UI_State_Rank_KillCnt rankKillCnt = null;
+    private UI_State_Rank_Score score = null;
     [SerializeField]
-    private UI_State_Rank_TimeSec rankTimeSec = null;
+    private UI_State_Rank_KillCnt killCnt = null;
+    [SerializeField]
+    private UI_State_Rank_TimeSec timeSec = null;
 }

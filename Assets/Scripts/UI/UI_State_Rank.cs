@@ -15,7 +15,7 @@ public class UI_State_Rank : MonoBehaviour
         btnRetry.onClick.AddListener(
         () =>
         {
-            uiRankScrollView.ResetContent();
+            uiRankScrollView.ClearContent();
             _retryBtnCallback?.Invoke();
         }
         );

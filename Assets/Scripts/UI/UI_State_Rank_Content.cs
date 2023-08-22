@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UI_State_Rank_Content : MonoBehaviour
 {
-    public void ResetContent()
+    public void ClearContent()
     {
         RectTransform[] arrayRankRecordRt = GetComponentsInChildren<RectTransform>();
 

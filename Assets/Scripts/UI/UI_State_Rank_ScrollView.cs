@@ -6,17 +6,22 @@ public class UI_State_Rank_ScrollView : MonoBehaviour
 {
     public void AddRankRecord(List<SDataScore> _listDataScore)
     {
-        for (int i = 0; i < _listDataScore.Count; ++i)
+        int maxRecord = 10;
+
+        if (_listDataScore.Count < 10)
+            maxRecord = _listDataScore.Count;
+
+        for (int i = 0; i < maxRecord; ++i)
         {
             GameObject go = Instantiate(rankRecordPrefab);
-            go.GetComponent<UI_State_Rank_Record>().UpdateRecord(_listDataScore[i]);
+            go.GetComponent<UI_State_Rank_Record>().UpdateRecord(_listDataScore[i], i + 1);
             go.transform.SetParent(content.GetRectTransform());
         }
     }
 
-    public void ResetContent()
+    public void ClearContent()
     {
-        content.ResetContent();
+        content.ClearContent();
     }
 
     [SerializeField]
