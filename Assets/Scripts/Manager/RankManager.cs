@@ -34,18 +34,14 @@ public class RankManager : MonoBehaviour
         using (UnityWebRequest www = UnityWebRequest.Post(pushRankUri, form))
         {
             yield return www.SendWebRequest(); // 정보를 모두 보낼때까지 대기
-            Debug.Log(www.result);
-
 
             if (www.result == UnityWebRequest.Result.Success)
             {
                 string resultCode = www.downloadHandler.text;
                 if (resultCode.Equals("-10"))
-                {
                     isRecordSucess = false;
-                }
-
-                isRecordSucess = true;
+                else
+                    isRecordSucess = true;
             }
         }
     }
@@ -64,16 +60,11 @@ public class RankManager : MonoBehaviour
                 Debug.Log(www.error);
             else
             {
-                Debug.Log(www.downloadHandler.text);
                 string data = www.downloadHandler.text;
 
                 List<SDataScore> listDataScore = JsonConvert.DeserializeObject<List<SDataScore>>(data);
 
                 _exportCallback?.Invoke(listDataScore);
-
-
-                foreach (SDataScore datas in listDataScore)
-                    Debug.Log(datas.id);
             }
         }
     }

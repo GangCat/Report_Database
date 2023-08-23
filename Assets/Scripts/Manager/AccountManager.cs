@@ -89,7 +89,6 @@ public class AccountManager : MonoBehaviour
         using (UnityWebRequest www = UnityWebRequest.Post(signupUri, form))
         {
             yield return www.SendWebRequest(); // 정보를 모두 보낼때까지 대기
-            Debug.Log(www.result);
 
 
             if (www.result == UnityWebRequest.Result.Success)

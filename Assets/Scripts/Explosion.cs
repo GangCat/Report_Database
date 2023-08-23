@@ -50,7 +50,6 @@ public class Explosion : MonoBehaviour
             {
                 if (hit.transform.CompareTag("Enemy"))
                 {
-                    //Debug.Log(hit.transform.name);
                     hitList.Add(hit.transform.GetComponent<IPoolingObject>());
                 }
             }
